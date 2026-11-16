@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padaria Danine</title>
+<meta name="description" content="Padaria Danine — bolos, tortas, cucas e doces feitos com carinho em Guabiruba, SC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#fbf5ec; --creme2:#f3e7d3; --marrom:#5a3a22; --marrom2:#3b2414;
+    --dourado:#c98b3c; --rosa:#e8b4a6; --texto:#3b2a1e; --suave:#7a6352;
+    --raio:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:var(--texto);background:var(--creme);line-height:1.6}
+  h1,h2,h3{font-family:'Playfair Display',serif;color:var(--marrom2);line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Topo */
+  header{position:sticky;top:0;z-index:10;background:rgba(251,245,236,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--creme2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--marrom2)}
+  .logo span{color:var(--dourado);font-style:italic}
+  .nav ul{display:flex;gap:28px;list-style:none;font-weight:600;color:var(--suave)}
+  .nav ul a:hover{color:var(--dourado)}
+  .btn{display:inline-block;background:var(--marrom);color:#fff;padding:12px 26px;border-radius:999px;font-weight:700;transition:.2s}
+  .btn:hover{background:var(--dourado);transform:translateY(-2px)}
+  .btn.claro{background:transparent;border:2px solid var(--marrom);color:var(--marrom)}
+  .btn.claro:hover{background:var(--marrom);color:#fff}
+
+  /* Hero */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:90px 0;overflow:hidden;
+    background:radial-gradient(circle at 15% 20%,rgba(201,139,60,.22),transparent 45%),radial-gradient(circle at 40% 90%,rgba(232,180,166,.12),transparent 40%),linear-gradient(135deg,#4a2e1a,#2a170b)}
+  .hero-video{position:absolute;top:0;right:0;width:50%;height:100%;object-fit:cover;object-position:center 0%;z-index:0;will-change:object-position;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.35) 12%,rgba(0,0,0,.8) 26%,#000 40%);
+    mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.35) 12%,rgba(0,0,0,.8) 26%,#000 40%)}
+  .hero-sombra{position:absolute;top:0;bottom:0;right:0;width:50%;z-index:1;background:linear-gradient(90deg,rgba(42,23,11,.35) 0%,rgba(42,23,11,0) 35%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;max-width:none;padding:0 clamp(20px,6vw,120px);display:grid;grid-template-columns:1fr 1fr}
+  .hero .texto{max-width:640px;padding-right:40px}
+  .hero .infos{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:38px;padding-top:24px;border-top:1px solid rgba(243,231,211,.18);color:#f3e7d3;font-size:.95rem}
+  .hero .infos div{display:flex;flex-direction:column}
+  .hero .infos small{color:#f0b866;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px}
+  .tag{display:inline-block;background:var(--creme2);color:var(--marrom);padding:6px 14px;border-radius:999px;font-size:.85rem;font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:clamp(2.3rem,5vw,4.4rem);margin-bottom:18px;color:#fff}
+  .hero h1 em{color:#f0b866}
+  .hero p{font-size:1.15rem;color:#f3e7d3;max-width:480px;margin-bottom:30px}
+  .hero .acoes{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .btn{background:var(--dourado)}
+  .hero .btn:hover{background:#fff;color:var(--marrom2)}
+  .hero .btn.claro{background:transparent;border-color:#fff;color:#fff}
+  .hero .btn.claro:hover{background:#fff;color:var(--marrom2)}
+
+  /* Seções */
+  section{padding:80px 0}
+  .titulo{text-align:center;margin-bottom:46px}
+  .titulo small{color:var(--dourado);font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.8rem}
+  .titulo h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-top:6px}
+
+  /* Destaques */
+  .faixa{background:var(--marrom2);color:#f3e7d3;padding:26px 0}
+  .faixa .wrap{display:flex;justify-content:space-around;flex-wrap:wrap;gap:16px;font-weight:600;text-align:center}
+
+  /* Abas do cardápio */
+  .abas{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-16px 0 36px}
+  .aba{font:inherit;font-weight:700;cursor:pointer;border:2px solid var(--creme2);background:#fff;color:var(--suave);padding:10px 22px;border-radius:999px;transition:.2s}
+  .aba:hover{border-color:var(--dourado);color:var(--marrom)}
+  .aba.ativa{background:var(--marrom);border-color:var(--marrom);color:#fff}
+  .card.oculto{display:none}
+  .card{animation:surge .35s ease}
+  @keyframes surge{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* Cardápio */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
+  .card{background:#fff;border-radius:var(--raio);overflow:hidden;box-shadow:0 8px 24px -12px rgba(90,58,34,.25);transition:.25s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 34px -14px rgba(90,58,34,.35)}
+  .card .foto{aspect-ratio:4/3;display:grid;place-items:center;font-size:4.2rem;overflow:hidden;position:relative}
+  .card .foto video,#det-foto video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .card .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block;transition:transform .4s}
+  .card:hover .foto img{transform:scale(1.05)}
+  .card .info{padding:18px 20px 22px}
+  .card h3{font-size:1.2rem;margin-bottom:6px}
+  .card p{color:var(--suave);font-size:.95rem}
+  .card{display:flex;flex-direction:column}
+  .card .info{flex:1;display:flex;flex-direction:column}
+  .saiba{margin-top:auto;padding-top:14px;align-self:flex-start;font:inherit;font-weight:700;font-size:.92rem;color:var(--dourado);background:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .saiba span{transition:transform .2s}
+  .saiba:hover{color:var(--marrom)}
+  .saiba:hover span{transform:translateX(4px)}
+  .card .foto{cursor:pointer}
+  .subsecao{grid-column:1/-1;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:26px;padding-bottom:12px;border-bottom:2px dashed var(--creme2)}
+  .subsecao h3{font-size:1.7rem}
+  .subsecao p{color:var(--suave)}
+  .subsecao.oculto{display:none}
+  .card.sem-foto{border-top:5px solid var(--dourado)}
+  .card.sem-foto .info{padding:24px 22px 24px}
+  .selo{align-self:flex-start;background:var(--creme2);color:var(--marrom);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+
+  /* Janela "Saiba mais" */
+  .detalhe{border:0;padding:0;border-radius:24px;width:min(860px,calc(100% - 32px));max-height:calc(100vh - 40px);background:#fff;color:var(--texto);box-shadow:0 40px 90px -20px rgba(40,22,10,.6);margin:auto;overflow:hidden}
+  .detalhe::backdrop{background:rgba(40,22,10,.6);backdrop-filter:blur(4px)}
+  .detalhe[open]{animation:abre .3s ease}
+  @keyframes abre{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+  .detalhe .corpo{display:grid;grid-template-columns:1fr 1fr;max-height:calc(100vh - 40px)}
+  .detalhe .foto{min-height:100%;aspect-ratio:auto;display:grid;place-items:center;font-size:7rem;overflow:hidden}
+  .detalhe .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block}
+  .detalhe .foto{position:relative;cursor:default}
+  .detalhe .foto img.troca{animation:troca .3s ease}
+  @keyframes troca{from{opacity:.2}to{opacity:1}}
+  .seta{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--marrom2);font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:2;display:grid;place-items:center;transition:.2s}
+  .seta:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+  .seta.ant{left:12px}
+  .seta.prox{right:12px}
+  .pontos{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:6px;z-index:2}
+  .pontos button{width:9px;height:9px;padding:0;border:0;border-radius:5px;background:rgba(255,255,255,.6);cursor:pointer;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .pontos button.on{width:22px;background:#fff}
+  .detalhe .texto{padding:40px 36px;overflow-y:auto;display:flex;flex-direction:column}
+  .detalhe .cat{color:var(--dourado);font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.75rem}
+  .detalhe h3{font-size:2rem;margin:6px 0 14px}
+  .detalhe p{color:var(--suave);margin-bottom:18px}
+  .detalhe ul{list-style:none;margin-bottom:26px;display:grid;gap:10px}
+  .detalhe li{display:flex;gap:10px;align-items:flex-start;font-weight:600;color:var(--marrom)}
+  .detalhe li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:var(--creme2);color:var(--dourado);display:grid;place-items:center;font-size:.75rem;margin-top:1px}
+  .detalhe .btn{margin-top:auto;align-self:flex-start;background:#25d366}
+  .detalhe .btn:hover{background:#1da851}
+  .fechar{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--marrom2);font-size:1.4rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:2;line-height:1}
+  .fechar:hover{background:var(--creme2)}
+  .fechar:focus:not(:focus-visible){outline:none}
+  @media (max-width:700px){
+    .detalhe .corpo{grid-template-columns:1fr;overflow-y:auto}
+    .detalhe .foto{aspect-ratio:4/3;min-height:0;font-size:5rem}
+    .detalhe .texto{padding:26px 22px 30px;overflow:visible}
+    .detalhe h3{font-size:1.6rem}
+  }
+  .f1{background:linear-gradient(135deg,#fff3b0,#f5d76e)}
+  .f2{background:linear-gradient(135deg,#ffd6d6,#f28b8b)}
+  .f3{background:linear-gradient(135deg,#ffe1f0,#f4a6c9)}
+  .f4{background:linear-gradient(135deg,#f6e3c4,#e0b77a)}
+  .f5{background:linear-gradient(135deg,#fdf1df,#ecd3a8)}
+  .f6{background:linear-gradient(135deg,#6b3f2a,#2e1a10)}
+  .f7{background:linear-gradient(135deg,#d9cfc7,#4a3a33)}
+  .f8{background:linear-gradient(135deg,#c78b52,#7a4a24)}
+  .f9{background:linear-gradient(135deg,#fff,#ffc2c2)}
+  .f10{background:linear-gradient(135deg,#f0d3a8,#8a5a2e)}
+  .f11{background:linear-gradient(135deg,#fde9ef,#e8b4a6)}
+  .f12{background:linear-gradient(135deg,#f4dfb8,#c98b3c)}
+  .f13{background:linear-gradient(135deg,#fff6c9,#e9c46a)}
+  .f17{background:linear-gradient(135deg,#fbe3e3,#c0392b 60%,#7a1c1c)}
+  .f16{background:linear-gradient(135deg,#e6c27a,#8a5a2e 55%,#3b2414)}
+  .f15{background:linear-gradient(135deg,#ffe58a,#e9a23b 60%,#8a4f8f)}
+  .f14{background:linear-gradient(135deg,#e7d4f0,#8e5ba8)}
+
+  /* Sobre */
+  .sobre{background:var(--creme2)}
+  .sobre .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .sobre-img{aspect-ratio:4/5;border-radius:var(--raio);background:linear-gradient(160deg,#d8a86a,#7a4a24);display:grid;place-items:center;font-size:7rem;overflow:hidden;box-shadow:0 24px 50px -20px rgba(90,58,34,.45)}
+  .sobre-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+  .sobre h2{font-size:2.3rem;margin-bottom:18px}
+  .sobre p{color:var(--suave);margin-bottom:14px;font-size:1.05rem}
+
+  /* Visite */
+  .visite .wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .box{background:#fff;border-radius:var(--raio);padding:34px;box-shadow:0 8px 24px -12px rgba(90,58,34,.25)}
+  .box h3{font-size:1.5rem;margin-bottom:16px}
+  .horario{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--creme2)}
+  .horario:last-child{border:0}
+  .horario b{color:var(--marrom)}
+  .fechado{color:#b4544a}
+  .mapa{border:0;width:100%;height:260px;border-radius:12px;margin-top:16px}
+
+  /* Rodapé */
+  footer{background:var(--marrom2);color:#d9c7ae;padding:44px 0;text-align:center}
+  footer .logo{color:#fff;margin-bottom:8px;display:block}
+  footer a{color:var(--dourado);font-weight:700}
+
+  /* WhatsApp flutuante */
+  .zap{position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px -6px rgba(0,0,0,.35);z-index:20;transition:.2s}
+  .zap:hover{transform:scale(1.08)}
+  .zap svg{width:32px;height:32px;fill:#fff}
+
+  @media (max-width:820px){
+    .nav ul{display:none}
+    .hero .wrap,.sobre .wrap,.visite .wrap{grid-template-columns:1fr}
+    .hero{min-height:82vh;padding:60px 0}
+    .hero-video{width:100%;object-position:center center;-webkit-mask-image:none;mask-image:none}
+    .hero .texto{padding-right:0}
+    .hero-sombra{width:100%;background:linear-gradient(180deg,rgba(40,22,10,.45) 0%,rgba(40,22,10,.82) 45%,rgba(40,22,10,.6) 100%)}
+    .sobre-img{aspect-ratio:16/10;font-size:5rem}
+    section{padding:60px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">Padaria <span>Danine</span></a>
+    <ul>
+      <li><a href="#cardapio">Delícias</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#visite">Visite</a></li>
+    </ul>
+    <a href="#visite" class="btn">Encomendar</a>
+  </div>
+</header>
+
+<section class="hero">
+  <video class="hero-video" src="midia/hero-fundo.mp4" poster="midia/hero-poster.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="hero-sombra"></div>
+  <div class="wrap">
+    <div class="texto">
+      <span class="tag">📍 Guabiruba · SC</span>
+      <h1>Bolos, tortas e doces feitos <em>com carinho</em> todos os dias</h1>
+      <p>Desde cedinho preparando bolos, tortas, cucas e doces do jeito tradicional para o seu café da manhã e da tarde.</p>
+      <div class="acoes">
+        <a href="#cardapio" class="btn">Ver delícias</a>
+        <a href="https://www.instagram.com/padariadanine/" target="_blank" class="btn claro">@padariadanine</a>
+      </div>
+      <div class="infos">
+        <div><small>Seg a Sex</small>05:30 – 19:00</div>
+        <div><small>Sábado</small>05:30 – 18:00</div>
+        <div><small>Endereço</small>Rua Brusque, 1804</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="faixa">
+  <div class="wrap">
+    <span>☀️ Abrimos às 5h30</span>
+    <span>🎂 Bolos e tortas sob encomenda</span>
+    <span>🍰 Cucas e doces fresquinhos todo dia</span>
+  </div>
+</div>
+
+<section id="cardapio">
+  <div class="wrap">
+    <div class="titulo">
+      <small>Nossas delícias</small>
+      <h2>Feitos aqui, do nosso forno</h2>
+    </div>
+    <div class="abas" role="tablist">
+      <button class="aba ativa" data-cat="colonial">☕ Café Colonial</button>
+      <button class="aba" data-cat="bolos">🎂 Bolos</button>
+      <button class="aba" data-cat="tortas">🥧 Tortas</button>
+      <button class="aba" data-cat="cucas">🍰 Cucas</button>
+      <button class="aba" data-cat="doces">🍩 Doces</button>
+    </div>
+    <div class="grid">
+      <div class="card" data-cat="cucas"><div class="foto f8"><img src="midia/cuca-chocolate.jpg" alt="Cuca de avelã com farofa e açúcar" loading="lazy" style="object-position:center 60%"></div><div class="info"><h3>Cuca de Avelã</h3><p>Creme de avelã e farofa crocante para quem ama um docinho.</p></div></div>
+      <div class="card" data-cat="cucas"><div class="foto f12"><img src="midia/cuca-pistache-morango.jpg" alt="Cuca de pistache com morangos" loading="lazy" style="object-position:center 60%"></div><div class="info"><h3>Cuca de Pistache com Morango</h3><p>Creme de pistache, pistaches picados e morangos frescos.</p></div></div>
+      <div class="card" data-cat="cucas"><div class="foto f13">🍌</div><div class="info"><h3>Cuca de Banana</h3><p>Massa macia com banana e farofa crocante por cima.</p></div></div>
+      <div class="card" data-cat="cucas"><div class="foto f14">🍇</div><div class="info"><h3>Cuca de Uva</h3><p>Receita tradicional, com uva e muita farofa.</p></div></div>
+      <div class="card" data-cat="cucas"><div class="foto f12">🥮</div><div class="info"><h3>Cuca de Farofa</h3><p>Simples e amanteigada, perfeita com café.</p></div></div>
+
+      <div class="card" data-cat="doces"><div class="foto f4"><img src="midia/sonho.jpg" alt="Sonhos recheados com creme e açúcar" loading="lazy"></div><div class="info"><h3>Sonho</h3><p>Fofinho, recheado e polvilhado de açúcar.</p></div></div>
+      <div class="card" data-cat="doces"><div class="foto f3"><img src="midia/donuts.jpg" alt="Donuts cobertos de chocolate com confeitos" loading="lazy"></div><div class="info"><h3>Donuts</h3><p>Coloridos e irresistíveis para o café da tarde.</p></div></div>
+      <div class="card" data-cat="doces"><div class="foto f2"><img src="midia/bomba-morango.jpg" alt="Bombas recheadas com chocolate, morangos e chantilly" loading="lazy"></div><div class="info"><h3>Bomba de Morango</h3><p>Massa leve recheada com chocolate, morangos e chantilly.</p></div></div>
+
+      <div class="card" data-cat="bolos"><div class="foto f5"><img src="midia/bolo-quatro-leites-capa.jpg" alt="Bolo quatro leites com chantilly, cobertura branca e cerejas" loading="lazy"></div><div class="info"><h3>Bolo Quatro Leites</h3><p>Molhadinho e cremoso, um clássico da casa.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f8"><img src="midia/bolo-kitkat.jpg" alt="Bolo KitKat com cobertura de chocolate e laço azul" loading="lazy"></div><div class="info"><h3>Bolo KitKat</h3><p>Chocolate de verdade, cercado de KitKat.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f15"><img src="midia/bolo-chocolate-maracuja.jpg" alt="Fatia de bolo de chocolate com recheio de maracujá" loading="lazy"></div><div class="info"><h3>Bolo de Chocolate com Maracujá</h3><p>Camadas de chocolate e creme de maracujá. Irresistível!</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f16"><img src="midia/bolo-ferrero-rocher-capa.jpg" alt="Bolo Ferrero Rocher com calda de chocolate e bombons" loading="lazy" style="object-position:center 35%"></div><div class="info"><h3>Bolo Ferrero Rocher</h3><p>Chocolate, creme de avelã e bombons Ferrero Rocher.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f17"><img src="midia/bolo-red-velvet.jpg" alt="Bolo red velvet com morangos" loading="lazy"></div><div class="info"><h3>Bolo Red Velvet</h3><p>Massa vermelha aveludada com creme de cream cheese.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f7"><img src="midia/bolo-negresco.jpg" alt="Bolo de Negresco com chantilly e biscoitos" loading="lazy" style="object-position:center 40%"></div><div class="info"><h3>Bolo de Negresco</h3><p>Chantilly e biscoito Negresco por dentro e por fora.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f6">🍒</div><div class="info"><h3>Floresta Negra</h3><p>Chocolate com cereja, feita do jeito tradicional.</p></div></div>
+
+      <div class="subsecao" data-cat="bolos"><h3>Bolos de Ganache</h3><p>Cobertos com ganache cremosa de chocolate</p></div>
+      <div class="card" data-cat="bolos"><div class="foto f5"><img src="midia/bolo-dois-amores.jpg" alt="Bolo Dois Amores com ganache de chocolate e ganache branca" loading="lazy" style="object-position:center 65%"></div><div class="info"><h3>Bolo Dois Amores</h3><p>Metade ganache de chocolate, metade ganache branca.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f6">🍫</div><div class="info"><h3>Bolo de Ganache de Chocolate</h3><p>Massa de chocolate e cobertura brilhante de ganache.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f2">🍓</div><div class="info"><h3>Bolo de Ganache com Morango</h3><p>Ganache de chocolate com morangos frescos.</p></div></div>
+      <div class="card" data-cat="bolos"><div class="foto f5">🤍</div><div class="info"><h3>Bolo de Ganache Branca</h3><p>Ganache de chocolate branco, suave e cremosa.</p></div></div>
+
+      <div class="card" data-cat="tortas"><div class="foto f9"><img src="midia/torta-morango.jpg" alt="Torta de morango com chantilly e morangos frescos" loading="lazy"></div><div class="info"><h3>Torta de Morango</h3><p>Chantilly, raspas de chocolate branco e morangos frescos.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f15"><img src="midia/torta-maracuja.jpg" alt="Torta de maracujá com cobertura de sementes e chantilly" loading="lazy"></div><div class="info"><h3>Torta de Maracujá</h3><p>Mousse de maracujá sobre base de chocolate, com calda da fruta.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f1"><img src="midia/torta-limao.jpg" alt="Torta de limão com chantilly e rodelas de limão" loading="lazy"></div><div class="info"><h3>Torta de Limão</h3><p>Azedinha na medida, com chantilly e rodelas de limão.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f12"><img src="midia/torta-banoffee.jpg" alt="Torta banoffee com banana, doce de leite e canela" loading="lazy" style="object-position:center 60%"></div><div class="info"><h3>Torta Banoffee</h3><p>Doce de leite, banana, chantilly e canela.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f7"><img src="midia/torta-negresco.jpg" alt="Torta de Negresco com ganache e biscoitos" loading="lazy" style="object-position:center"></div><div class="info"><h3>Torta de Negresco</h3><p>Ganache de chocolate, raspas e biscoito Negresco.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f13"><img src="midia/torta-abacaxi-coco.jpg" alt="Torta de abacaxi com coco vista de cima" loading="lazy" style="object-position:center"></div><div class="info"><h3>Torta de Abacaxi com Coco</h3><p>Chantilly, pedaços de abacaxi e coco ralado.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f10"><img src="midia/torta-kinder-bueno.jpg" alt="Torta Kinder Bueno com chantilly, calda de chocolate e pedaços de Kinder Bueno" loading="lazy" style="object-position:center"></div><div class="info"><h3>Torta Kinder Bueno</h3><p>Chantilly, calda de chocolate e pedaços de Kinder Bueno.</p></div></div>
+
+      <div class="subsecao" data-cat="tortas"><h3>Mini Tortas</h3><p>As mesmas delícias em porção individual</p></div>
+      <div class="card" data-cat="tortas" data-mini="1"><div class="foto f2"><img src="midia/mini-torta-morango.jpg" alt="Mini tortas de morango com creme" loading="lazy" style="object-position:center"></div><div class="info"><span class="selo">Mini</span><h3>Mini Torta de Morango</h3><p>Creme e morangos frescos, em porção individual.</p></div></div>
+      <div class="card" data-cat="tortas" data-mini="1"><div class="foto f1"><img src="midia/mini-torta-limao.jpg" alt="Mini tortas de limão em copinhos de chocolate" loading="lazy"></div><div class="info"><span class="selo">Mini</span><h3>Mini Torta de Limão</h3><p>Azedinha na medida, do tamanho certo para o café.</p></div></div>
+      <div class="card" data-cat="tortas" data-mini="1"><div class="foto f15">🥧</div><div class="info"><span class="selo">Mini</span><h3>Mini Torta de Maracujá</h3><p>Creme leve de maracujá sobre base crocante.</p></div></div>
+      <div class="card" data-cat="tortas" data-mini="1"><div class="foto f7">🍪</div><div class="info"><span class="selo">Mini</span><h3>Mini Torta de Negresco</h3><p>Recheio cremoso com biscoito triturado.</p></div></div>
+      <div class="card" data-cat="tortas" data-mini="1"><div class="foto f10">🌰</div><div class="info"><span class="selo">Mini</span><h3>Mini Torta Kinder Bueno</h3><p>Com brigadeiro e creme de avelã.</p></div></div>
+
+      <div class="subsecao" data-cat="tortas"><h3>Tortas de Ganache</h3><p>Para quem é apaixonado por chocolate</p></div>
+      <div class="card" data-cat="tortas"><div class="foto f2"><img src="midia/torta-ganache-morango.jpg" alt="Torta de ganache com morangos frescos" loading="lazy" style="object-position:center 65%"></div><div class="info"><h3>Torta de Ganache com Morango</h3><p>Ganache de chocolate coberta de morangos frescos.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f6">🍫</div><div class="info"><h3>Torta de Ganache de Chocolate</h3><p>Base crocante e ganache de chocolate bem cremosa.</p></div></div>
+      <div class="card" data-cat="tortas"><div class="foto f16">🌰</div><div class="info"><h3>Torta de Ganache com Avelã</h3><p>Ganache de chocolate com creme e pedaços de avelã.</p></div></div>
+
+      <div class="subsecao" data-cat="colonial" style="margin-top:0"><h3>Café Colonial</h3><p>Uma mesa farta, do doce ao salgado, com café passado na hora</p></div>
+      <div class="card" data-cat="colonial"><div class="foto"><img src="midia/colonial-mesa.jpg" alt="Mesa do café colonial com torta e frios" loading="lazy" style="object-position:center"></div><div class="info"><h3>Mesa do Café Colonial</h3><p>Tortas, frios, pães e muito mais, tudo servido à vontade.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><video src="midia/colonial-coado.mp4" poster="midia/colonial-coado.jpg" autoplay muted loop playsinline aria-label="Café sendo passado no coador"></video></div><div class="info"><h3>Café Passado na Hora</h3><p>Coado na hora, quentinho, do jeito que tem que ser.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><video src="midia/colonial-espresso.mp4" poster="midia/colonial-espresso.jpg" autoplay muted loop playsinline aria-label="Café expresso sendo tirado na máquina"></video></div><div class="info"><h3>Café Expresso</h3><p>Tirado na hora, com leite vaporizado e cremoso.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><img src="midia/colonial-cappuccino.jpg" alt="Cappuccino com salgado" loading="lazy" style="object-position:center"></div><div class="info"><h3>Cappuccino</h3><p>Cremoso e espumado, perfeito com um salgadinho.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><img src="midia/colonial-salgados.jpg" alt="Vitrine com salgados" loading="lazy" style="object-position:center"></div><div class="info"><h3>Salgados Quentinhos</h3><p>Salgados fresquinhos para acompanhar o café.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><img src="midia/colonial-cremes.jpg" alt="Potinhos com cremes e doces" loading="lazy" style="object-position:center"></div><div class="info"><h3>Cremes e Doces</h3><p>Potinhos de cremes, frutas e doces para adoçar a mesa.</p></div></div>
+      <div class="card" data-cat="colonial"><div class="foto"><img src="midia/colonial-folhados.jpg" alt="Vitrine com folhados e doces" loading="lazy" style="object-position:center"></div><div class="info"><h3>Folhados e Delícias da Vitrine</h3><p>Folhados, bolos e doces direto da nossa vitrine.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="sobre">
+  <div class="wrap">
+    <div class="sobre-img"><img src="midia/fachada.jpg" alt="Fachada da Padaria Danine em Guabiruba" loading="lazy"></div>
+    <div>
+      <small style="color:var(--dourado);font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.8rem">Nossa história</small>
+      <h2>Uma padaria de bairro, feita com amor</h2>
+      <p>A Padaria Danine nasceu do carinho por receitas caseiras e do prazer de ver a mesa das famílias de Guabiruba cheia de coisa boa.</p>
+      <p>Cada bolo, torta, cuca e doce é preparado aqui, com ingredientes selecionados e aquele cuidado que só quem ama o que faz consegue ter.</p>
+      <a href="#visite" class="btn" style="margin-top:10px">Venha nos visitar</a>
+    </div>
+  </div>
+</section>
+
+<section id="visite" class="visite">
+  <div class="wrap">
+    <div class="titulo" style="grid-column:1/-1;margin-bottom:10px">
+      <small>Estamos te esperando</small>
+      <h2>Visite a Padaria Danine</h2>
+    </div>
+    <div class="box">
+      <h3>🕐 Horário de atendimento</h3>
+      <div class="horario"><span>Segunda a Sexta</span><b>05:30 – 19:00</b></div>
+      <div class="horario"><span>Sábado</span><b>05:30 – 18:00</b></div>
+      <div class="horario"><span>Domingo</span><b class="fechado">Fechado</b></div>
+      <p style="margin-top:20px;color:var(--suave)">Encomendas de bolos e tortas: fale com a gente pelo WhatsApp ou Instagram.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+        <a href="https://wa.me/5547000000000" target="_blank" class="btn">WhatsApp</a>
+        <a href="https://www.instagram.com/padariadanine/" target="_blank" class="btn claro">Instagram</a>
+      </div>
+    </div>
+    <div class="box">
+      <h3>📍 Onde estamos</h3>
+      <p><b>Rua Brusque, 1804</b><br>Guabiruba – SC</p>
+      <iframe class="mapa" loading="lazy" src="https://www.google.com/maps?q=Rua+Brusque,+1804,+Guabiruba,+SC&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Padaria <span style="color:var(--dourado);font-style:italic">Danine</span></span>
+  <p>Rua Brusque, 1804 · Guabiruba – SC</p>
+  <p style="margin-top:6px"><a href="https://www.instagram.com/padariadanine/" target="_blank">@padariadanine</a></p>
+  <p style="margin-top:18px;font-size:.85rem;opacity:.7">© 2026 Padaria Danine. Todos os direitos reservados.</p>
+</footer>
+
+<dialog class="detalhe" id="detalhe" aria-labelledby="det-titulo">
+  <button class="fechar" aria-label="Fechar">×</button>
+  <div class="corpo">
+    <div class="foto" id="det-foto"></div>
+    <div class="texto">
+      <span class="cat" id="det-cat"></span>
+      <h3 id="det-titulo"></h3>
+      <p id="det-desc"></p>
+      <ul id="det-lista"></ul>
+      <a class="btn" id="det-zap" target="_blank">Encomendar pelo WhatsApp</a>
+    </div>
+  </div>
+</dialog>
+
+<a href="https://wa.me/5547000000000" target="_blank" class="zap" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1 1.1-3.9-.3-.4C5.8 19.9 5.3 18 5.3 16 5.3 10.1 10.1 5.3 16 5.3S26.7 10.1 26.7 16 21.9 26.6 16 26.6zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+  // Ao rolar a tela, o vídeo do topo desce e revela o resto da fachada
+  (function(){
+    const hero = document.querySelector('.hero');
+    const vid = document.querySelector('.hero-video');
+    if(!hero || !vid) return;
+    let pendente = false;
+    function atualizar(){
+      pendente = false;
+      const altura = hero.offsetHeight || 1;
+      const p = Math.min(Math.max(window.scrollY / altura, 0), 1);
+      vid.style.objectPosition = 'center ' + (p * 100).toFixed(1) + '%';
+    }
+    window.addEventListener('scroll', () => { if(!pendente){ pendente = true; requestAnimationFrame(atualizar); } }, {passive:true});
+    atualizar();
+  })();
+</script>
+<script>
+  const abas = document.querySelectorAll('.aba');
+  const cards = document.querySelectorAll('#cardapio .card');
+  function mostrar(cat){
+    abas.forEach(a => a.classList.toggle('ativa', a.dataset.cat === cat));
+    cards.forEach(c => c.classList.toggle('oculto', c.dataset.cat !== cat));
+    document.querySelectorAll('#cardapio .subsecao').forEach(s => s.classList.toggle('oculto', s.dataset.cat !== cat));
+  }
+  abas.forEach(a => a.addEventListener('click', () => mostrar(a.dataset.cat)));
+  mostrar('colonial');
+
+  /* ---- Saiba mais ----
+     Para mudar o texto de um item, edite aqui (o nome tem que ser igual ao do card).
+     FOTOS EXTRAS: coloque a foto na pasta "midia" e adicione no item:  fotos:['midia/nome-da-foto.jpg', 'midia/outra.jpg']
+     A primeira foto da galeria é sempre a do card; as setinhas aparecem sozinhas quando tem mais de uma. */
+  const ZAP = '5547000000000';
+  const detalhes = {
+    'Bolo Quatro Leites':   { desc:'Massa fofinha e bem molhadinha com a mistura de quatro leites, coberta de chantilly. Leve, cremoso e o queridinho das festas de família.', itens:['Massa molhadinha e cremosa','Ótimo para aniversários e festas','Sob encomenda'],
+      fotos:['midia/bolo-quatro-leites.jpg'] },
+    'Floresta Negra':       { desc:'Camadas de massa de chocolate, chantilly e cerejas, finalizado com raspas de chocolate. Uma receita clássica feita do jeito tradicional.', itens:['Chocolate com cereja','Receita tradicional','Sob encomenda'] },
+    'Bolo Ferrero Rocher':  { desc:'Massa de chocolate recheada com creme de avelã, coberta de ganache e decorada com bombons Ferrero Rocher. Sofisticado e irresistível.', itens:['Creme de avelã','Decorado com Ferrero Rocher','Sob encomenda'],
+      fotos:['midia/bolo-ferrero-rocher.jpg'] },
+    'Bolo de Chocolate com Maracujá': { desc:'Camadas de massa de chocolate intercaladas com creme de maracujá, cobertura de maracujá com sementes e chantilly. O equilíbrio perfeito entre o doce e o azedinho.', itens:['Chocolate com maracujá','Muitas camadas','Sob encomenda'],
+      fotos:['midia/bolo-maracuja-inteiro.jpg'] },
+    'Bomba de Morango':     { desc:'Massa de bomba leve e sequinha, recheada com creme de chocolate, morangos frescos e finalizada com chantilly.', itens:['Recheio de chocolate','Morangos frescos','Fresquinha todo dia'] },
+    'Bolo Red Velvet':      { desc:'Massa vermelha, macia e aveludada, com camadas de creme de cream cheese. Lindo por dentro e por fora.', itens:['Creme de cream cheese','Massa aveludada','Sob encomenda'],
+      fotos:['midia/bolo-red-velvet-2.jpg'] },
+    'Bolo de Ganache de Chocolate': { desc:'Massa fofinha de chocolate com recheio cremoso e cobertura brilhante de ganache.', itens:['Cobertura de ganache','Muito chocolate','Sob encomenda'] },
+    'Bolo de Ganache com Morango':  { desc:'Bolo de chocolate coberto de ganache e decorado com morangos frescos.', itens:['Ganache de chocolate','Morangos frescos','Sob encomenda'] },
+    'Bolo de Ganache Branca':       { desc:'Bolo com cobertura de ganache de chocolate branco, suave e cremosa.', itens:['Chocolate branco','Suave e cremoso','Sob encomenda'] },
+    'Torta de Ganache de Chocolate': { desc:'Base crocante de chocolate recheada com ganache cremosa. Simples e intensa.', itens:['Ganache cremosa','Base crocante','Inteira sob encomenda'] },
+    'Torta de Ganache com Morango':  { desc:'Ganache de chocolate sobre base crocante, coberta de morangos frescos.', itens:['Ganache de chocolate','Morangos frescos','Inteira sob encomenda'] },
+    'Torta de Ganache com Avelã':    { desc:'Ganache de chocolate com creme de avelã e pedaços crocantes de avelã.', itens:['Creme de avelã','Crocante','Inteira sob encomenda'] },
+    'Bolo KitKat':          { desc:'Bolo de chocolate com recheio cremoso, cercado de KitKat e decorado por cima. Bonito na mesa e irresistível no prato.', itens:['Muito chocolate','Lindo para festas','Sob encomenda'] },
+    'Torta de Limão':       { desc:'Base crocante amanteigada, creme de limão azedinho na medida e decoração com chantilly e rodelas de limão.', itens:['Azedinha e refrescante','Base crocante','Inteira sob encomenda'] },
+    'Torta de Maracujá':    { desc:'Mousse de maracujá leve e azedinho sobre base de chocolate, coberta com calda de maracujá com sementes e contornada de chantilly. Refrescante, perfeita para dias quentes.', itens:['Mousse de maracujá','Base de chocolate','Inteira sob encomenda'] },
+    'Tortinhas de Morango': { desc:'Mini tortas individuais com creme e morangos frescos por cima. Do tamanho certo para um docinho no café.', itens:['Porção individual','Morangos frescos','Para festas, sob encomenda'] },
+    'Torta de Morango':     { desc:'Coberta de chantilly bem fofinho com raspas de chocolate branco e contornada por morangos frescos. Linda na mesa e leve no paladar.', itens:['Morangos frescos','Chantilly e chocolate branco','Inteira sob encomenda'] },
+    'Bolo de Negresco':     { desc:'Bolo coberto de chantilly e biscoito Negresco triturado, decorado com biscoitos inteiros por cima. Para quem ama um bom “cookies and cream”.', itens:['Biscoito Negresco','Chantilly cremoso','Sob encomenda'] },
+    'Torta de Negresco':    { desc:'Cobertura brilhante de ganache de chocolate, raspas de chocolate e biscoitos Negresco sobre rosetas de creme. Para quem ama um bom “cookies and cream”.', itens:['Ganache de chocolate','Biscoito Negresco','Inteira sob encomenda'] },
+    'Torta Kinder Bueno':   { desc:'Base crocante, recheio cremoso e cobertura de chantilly com fios de calda de chocolate e pedaços de Kinder Bueno. Uma torta para os verdadeiros apaixonados por chocolate.', itens:['Pedaços de Kinder Bueno','Calda de chocolate','Inteira sob encomenda'],
+      fotos:['midia/torta-kinder-bueno-2.jpg'] },
+    'Mini Torta de Morango':   { desc:'Mini torta individual com creme e morangos frescos por cima. Do tamanho certo para um docinho no café.', itens:['Porção individual','Morangos frescos','Para festas, sob encomenda'] },
+    'Mini Torta de Limão':     { desc:'Versão individual da nossa torta de limão: base crocante e creme azedinho na medida.', itens:['Porção individual','Azedinha e refrescante','Para festas, sob encomenda'] },
+    'Mini Torta de Maracujá':  { desc:'Creme leve e azedinho de maracujá sobre base crocante, em porção individual.', itens:['Porção individual','Leve e refrescante','Para festas, sob encomenda'] },
+    'Mini Torta de Negresco':  { desc:'Recheio cremoso com pedaços de Negresco sobre base de chocolate, no tamanho individual.', itens:['Porção individual','Com biscoito triturado','Para festas, sob encomenda'] },
+    'Mini Torta Kinder Bueno': { desc:'Brigadeiro, creme de avelã e pedaços de Kinder Bueno numa mini torta individual.', itens:['Porção individual','Com brigadeiro','Para festas, sob encomenda'] },
+    'Mesa do Café Colonial':  { desc:'Nosso café colonial é uma mesa farta para aproveitar sem pressa: tortas, frios, pães, salgados, cremes, doces e café passado na hora. Ideal para reunir a família e os amigos.', itens:['Doces e salgados','Café passado na hora','Perfeito para ir em família'],
+      fotos:['midia/colonial-cremes.jpg','midia/colonial-salgados.jpg','midia/colonial-folhados.jpg','midia/colonial-cafe.jpg'] },
+    'Café Expresso':          { desc:'Café expresso tirado na hora na nossa máquina, com leite vaporizado e cremoso para quem gosta de um café com leite caprichado.', itens:['Tirado na hora','Leite vaporizado','Acompanha a mesa'] },
+    'Cappuccino':             { desc:'Cappuccino cremoso e bem espumado, perfeito para acompanhar um salgadinho quentinho.', itens:['Cremoso','Espuma de leite','Combina com salgado'] },
+    'Café Passado na Hora':   { desc:'Café coado na hora, no coador, para acompanhar cada delícia da mesa. Quentinho e cheiroso, do jeito tradicional.', itens:['Coado na hora','Sempre quentinho','Acompanha a mesa'] },
+    'Salgados Quentinhos':    { desc:'Salgados fresquinhos e quentinhos para equilibrar o doce da mesa do café colonial.', itens:['Feitos aqui','Servidos quentinhos','Faz parte da mesa'] },
+    'Cremes e Doces':         { desc:'Potinhos de cremes, frutas, brigadeiro e outras delícias para montar o seu prato do jeito que você gosta.', itens:['Vários sabores','Frutas frescas','Faz parte da mesa'] },
+    'Folhados e Delícias da Vitrine': { desc:'Folhados, bolos e doces da nossa vitrine, sempre fresquinhos, para completar o seu café.', itens:['Fresquinhos todo dia','Doces e salgados','Direto da vitrine'] },
+    'Torta de Abacaxi com Coco': { desc:'Torta coberta de chantilly, com pedaços de abacaxi e coco ralado no centro. Leve, tropical e refrescante.', itens:['Abacaxi e coco','Leve e refrescante','Inteira sob encomenda'] },
+    'Bolo Dois Amores':     { desc:'O melhor dos dois mundos: metade com ganache de chocolate e metade com ganache branca, decorado com docinhos e confeitos.', itens:['Chocolate ao leite e branco','Decorado com docinhos','Sob encomenda'] },
+    'Torta Banoffee':       { desc:'Base crocante, camada de doce de leite, rodelas de banana e chantilly, finalizada com canela por cima.', itens:['Doce de leite e banana','Toque de canela','Inteira sob encomenda'] },
+    'Cuca de Pistache com Morango': { desc:'Cuca de farofa coberta com creme de pistache, pistaches picados e morangos frescos com fios de chocolate branco.', itens:['Creme de pistache','Morangos frescos','Farofa crocante'] },
+    'Cuca de Banana':       { desc:'A cuca tradicional da região: massa macia, banana e uma farofa crocante e generosa por cima.', itens:['Receita tradicional','Farofa crocante','Fresquinha todo dia'] },
+    'Cuca de Uva':          { desc:'Massa macia com uvas e bastante farofa, do jeitinho que a família sempre fez.', itens:['Receita tradicional','Muita farofa','Fresquinha todo dia'] },
+    'Cuca de Farofa':       { desc:'Simples, amanteigada e com aquela farofa que derrete na boca. Combina perfeitamente com um cafezinho.', itens:['Amanteigada','Perfeita com café','Fresquinha todo dia'] },
+    'Cuca de Avelã':        { desc:'Massa macia com creme de avelã, farofa crocante e açúcar por cima, para quem não abre mão de um docinho.', itens:['Creme de avelã','Farofa crocante','Fresquinha todo dia'] },
+    'Sonho':                { desc:'Massa fofinha frita na hora, recheada com bastante creme e polvilhada com açúcar. Clássico de padaria.', itens:['Recheio generoso','Massa fofinha','Fresquinho todo dia'] },
+    'Donuts':               { desc:'Donuts cobertos de chocolate com confeitos coloridos, granulado e chocolate branco. Alegria garantida no café da tarde.', itens:['Várias coberturas','Fofinhos','Encomendas para festas'],
+      fotos:['midia/donuts-2.jpg'] }
+  };
+  const nomesCat = { bolos:'Bolos', tortas:'Tortas', mini:'Mini Tortas', colonial:'Café Colonial', cucas:'Cucas', doces:'Doces' };
+  const dlg = document.getElementById('detalhe');
+
+  /* Galeria de fotos do "Saiba mais" */
+  let galeria = [], gi = 0;
+  function irPara(i){
+    if (!galeria.length) return;
+    gi = (i + galeria.length) % galeria.length;
+    const alvo = document.getElementById('det-foto');
+    const img = alvo.querySelector('img');
+    img.classList.remove('troca'); void img.offsetWidth; img.classList.add('troca');
+    img.src = galeria[gi];
+    alvo.querySelectorAll('.pontos button').forEach((b, k) => b.classList.toggle('on', k === gi));
+  }
+  document.addEventListener('keydown', e => {
+    if (!dlg.open || galeria.length < 2) return;
+    if (e.key === 'ArrowLeft') irPara(gi - 1);
+    if (e.key === 'ArrowRight') irPara(gi + 1);
+  });
+  (() => {
+    let x0 = null;
+    const area = document.getElementById('det-foto');
+    area.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+    area.addEventListener('touchend', e => {
+      if (x0 === null || galeria.length < 2) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) irPara(gi + (dx < 0 ? 1 : -1));
+    });
+  })();
+
+  function abrir(card){
+    const nome = card.querySelector('h3').textContent.trim();
+    const d = detalhes[nome] || { desc: card.querySelector('p').textContent, itens: [] };
+    const foto = card.querySelector('.foto');
+    const alvo = document.getElementById('det-foto');
+    const principal = foto && foto.querySelector('img') ? foto.querySelector('img').getAttribute('src') : null;
+    galeria = [principal, ...(d.fotos || [])].filter(Boolean);
+    gi = 0;
+    alvo.style.display = (foto || galeria.length) ? '' : 'none';
+    alvo.className = foto ? foto.className : 'foto';
+    if (galeria.length) {
+      alvo.innerHTML = '<img alt="">' + (galeria.length > 1
+        ? '<button class="seta ant" aria-label="Foto anterior">‹</button><button class="seta prox" aria-label="Próxima foto">›</button><div class="pontos">' +
+          galeria.map((_, i) => '<button aria-label="Foto ' + (i + 1) + '"></button>').join('') + '</div>'
+        : '');
+      alvo.querySelector('img').alt = nome;
+      if (galeria.length > 1) {
+        alvo.querySelector('.ant').onclick = () => irPara(gi - 1);
+        alvo.querySelector('.prox').onclick = () => irPara(gi + 1);
+        alvo.querySelectorAll('.pontos button').forEach((b, i) => b.onclick = () => irPara(i));
+        galeria.forEach(src => { const pre = new Image(); pre.src = src; });
+      }
+      irPara(0);
+    } else if (foto) {
+      alvo.innerHTML = foto.innerHTML;
+    }
+    document.getElementById('det-cat').textContent = nomesCat[card.dataset.cat] || '';
+    document.getElementById('det-titulo').textContent = nome;
+    document.getElementById('det-desc').textContent = d.desc;
+    const ul = document.getElementById('det-lista');
+    ul.innerHTML = '';
+    d.itens.forEach(t => { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    document.getElementById('det-zap').href = 'https://wa.me/' + ZAP + '?text=' +
+      encodeURIComponent('Olá! Vi no site e gostaria de saber mais sobre: ' + nome);
+    dlg.showModal();
+  }
+
+  cards.forEach(card => {
+    const btn = document.createElement('button');
+    btn.className = 'saiba';
+    btn.type = 'button';
+    const foto = card.querySelector('.foto');
+    btn.innerHTML = (card.dataset.mini ? 'Ver mais' : 'Saiba mais') + ' <span>→</span>';
+    card.querySelector('.info').appendChild(btn);
+    btn.addEventListener('click', () => abrir(card));
+    if (foto) foto.addEventListener('click', () => abrir(card));
+  });
+  dlg.querySelector('.fechar').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+</script>
+
+</body>
+</html>
